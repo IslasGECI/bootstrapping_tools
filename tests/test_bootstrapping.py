@@ -3,6 +3,7 @@ import pandas as pd
 from bootstrapping_tools import (
     boostrapping_feature,
     bootstrap_from_time_series,
+    xxbootstrap_from_time_series,
     calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
@@ -113,6 +114,21 @@ def test_get_bootstrap_deltas():
 
 
 def test_bootstrap_from_time_series():
+    data_nest = pd.DataFrame(
+        {
+            "Temporada": [2019, 2020, 2022, 2023, 2024],
+            "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
+        }
+    )
+    obtained_intervals = xxbootstrap_from_time_series(
+        data_nest,
+        "Nest",
+        N=100,
+    )
+    expected_lambda = 1.1
+    np.testing.assert_allclose(
+        obtained_intervals[1][0], expected_lambda, rtol=1e-3
+    ), "Lambda central difiere del esperado"
     data_nest = pd.DataFrame(
         {
             "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
