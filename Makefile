@@ -69,7 +69,9 @@ mutants_bootstrapping: install
 mutants_by_blocks: install
 	mutmut run --runner "pytest tests/test_resample_by_blocks.py" --paths-to-mutate bootstrapping_tools/resample_by_blocks.py 
 
-setup: clean install
+setup: init_git clean install
+
+init_git:
 	git config --global --add safe.directory /workdir
 	git config --global user.name "Ciencia de Datos • GECI"
 	git config --global user.email "ciencia.datos@islas.org.mx"
