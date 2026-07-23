@@ -120,15 +120,20 @@ def test_bootstrap_from_time_series():
             "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
         }
     )
-    obtained_intervals = xxbootstrap_from_time_series(
-        data_nest,
-        "Nest",
-        N=100,
+    obtained_distribution_sorted, obtained_intervals_sorted = xxbootstrap_from_time_series(
+        data_nest, "Nest", N=100, return_distribution=True
     )
     expected_lambda = 1.1
     np.testing.assert_allclose(
-        obtained_intervals[1][0], expected_lambda, rtol=1e-3
+        obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
     ), "Lambda central difiere del esperado"
+
+    data_nest_resampled = data_nest.sample()
+    obtained_distribution_resampled, obtained_intervals = xxbootstrap_from_time_series(
+        data_nest_resampled, "Nest", N=100, return_distribution=True
+    )
+    assert set(obtained_distribution_sorted) == set(obtained_distribution_resampled)
+
     data_nest = pd.DataFrame(
         {
             "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
