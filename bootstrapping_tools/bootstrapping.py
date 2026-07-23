@@ -95,7 +95,7 @@ def boostrapping_feature(data, number_sample=2000):
     bootstrap_data = []
     for i in range(number_sample):
         resampled_data = dataframe.sample(n=1, random_state=i)
-        bootstrap_data.append(resampled_data.iloc[0][0])
+        bootstrap_data.append(resampled_data.iloc[0, 0])
     return bootstrap_data
 
 
