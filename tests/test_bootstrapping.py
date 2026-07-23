@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from bootstrapping_tools import (
+from bootstrapping_tools.bootstrapping import (
     boostrapping_feature,
     bootstrap_from_time_series,
     xxbootstrap_from_time_series,
