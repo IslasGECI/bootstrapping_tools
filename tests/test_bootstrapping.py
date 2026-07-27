@@ -131,7 +131,7 @@ def test_bootstrap_from_time_series():
             len(element) == expected_parameters_for_each_confidence_interval
             for element in obtained_intervals_sorted
         ]
-    ), "Each confidence interval element wrong number of parameters"
+    ), "A confidence interval element has wrong number of parameters"
 
     obtained_alpha_0p1_intervals = xxbootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
     obtained_alpha_0p05_interval_length = (
@@ -168,6 +168,13 @@ def test_bootstrap_from_time_series():
         len(obtained_distribution_resampled) == bootstrapp_number
     ), "Number of elements from distribution are different from bootstrapp number"
 
+    expected_parameters_for_each_distribution_element = 2
+    assert all(
+        [
+            len(element) == expected_parameters_for_each_distribution_element
+            for element in obtained_distribution_resampled
+        ]
+    ), "A distribution element has wrong number of parameters"
     # data_nest = pd.DataFrame(
     #    {
     #        "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
