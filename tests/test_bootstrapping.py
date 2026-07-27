@@ -126,7 +126,19 @@ def test_bootstrap_from_time_series():
     expected_elements_of_confidence_interval = 3
     assert len(obtained_intervals_sorted) == expected_elements_of_confidence_interval
     expected_parameters_for_each_confidence_interval = 2
-    assert len(obtained_intervals_sorted[0]) == expected_parameters_for_each_confidence_interval
+    assert all(
+        [
+            len(element) == expected_parameters_for_each_confidence_interval
+            for element in obtained_intervals_sorted
+        ]
+    )
+
+    alpha_0p1_obtained_intervals = xxbootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
+    alpha_0p05_interval_length = obtained_intervals_sorted[2][0] - obtained_intervals_sorted[0][0]
+    obtained_alpha_0p1_interval_length = (
+        alpha_0p1_obtained_intervals[2][0] - alpha_0p1_obtained_intervals[0][0]
+    )
+    assert obtained_alpha_0p1_interval_length < alpha_0p05_interval_length
 
     expected_lambda = 1.1
     np.testing.assert_allclose(
