@@ -123,6 +123,11 @@ def test_bootstrap_from_time_series():
     obtained_distribution_sorted, obtained_intervals_sorted = xxbootstrap_from_time_series(
         data_nest, "Nest", N=100, return_distribution=True
     )
+    expected_elements_of_confidence_interval = 3
+    assert len(obtained_intervals_sorted) == expected_elements_of_confidence_interval
+    expected_parameters_for_each_confidence_interval = 2
+    assert len(obtained_intervals_sorted[0]) == expected_parameters_for_each_confidence_interval
+
     expected_lambda = 1.1
     np.testing.assert_allclose(
         obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
