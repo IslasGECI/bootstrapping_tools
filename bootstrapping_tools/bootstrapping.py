@@ -254,6 +254,14 @@ def resample_data(dataframe, seed, blocks_length):
     return random_resample_data_by_blocks(dataframe, blocks_length, rng)
 
 
+def xxresample_and_shift_data(dataframe, seed, blocks_length):
+    sorted_df_by_season = dataframe.sort_values(by="Temporada")
+    resampled_data = resample_data(sorted_df_by_season, seed, blocks_length)
+    min_season = sorted_df_by_season.loc[:, "Temporada"].min()
+    resampled_data.loc[:, "Temporada"] = resampled_data.loc[:, "Temporada"] - min_season
+    return resampled_data
+
+
 def resample_and_shift_data(dataframe, seed, blocks_length):
     resampled_data = resample_data(dataframe, seed, blocks_length)
     min_season = dataframe.loc[:, "Temporada"].min()
