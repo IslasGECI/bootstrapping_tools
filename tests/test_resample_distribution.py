@@ -1,5 +1,6 @@
 from bootstrapping_tools import (
     resample_and_shift_data,
+    xxresample_and_shift_data,
     get_labels,
     get_rows,
 )
@@ -35,7 +36,7 @@ def test_distribution():
     gumu_data = pd.read_csv("tests/data/gumu_guadalupe_data.csv")
     blocks_length = 1
     seed = 99
-    df_resample = resample_and_shift_data(gumu_data, seed, blocks_length)
+    df_resample = xxresample_and_shift_data(gumu_data, seed, blocks_length)
     expected_nidos = gumu_data.Maxima_cantidad_nidos.to_list()
     obtained_nidos = df_resample.Maxima_cantidad_nidos.to_list()
     expected_temporadas = [i for i in range(len(gumu_data))]
