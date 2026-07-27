@@ -159,7 +159,9 @@ def test_bootstrap_from_time_series():
     obtained_distribution_resampled, _ = xxbootstrap_from_time_series(
         data_nest_resampled, "Nest", N=100, return_distribution=True
     )
-    assert set(obtained_distribution_sorted) == set(obtained_distribution_resampled)
+    assert set(obtained_distribution_sorted) == set(
+        obtained_distribution_resampled
+    ), "Distributions are equal for a unsorted input dataframe"
 
     # data_nest = pd.DataFrame(
     #    {
