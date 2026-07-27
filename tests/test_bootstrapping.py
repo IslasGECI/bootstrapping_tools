@@ -140,6 +140,10 @@ def test_bootstrap_from_time_series():
     )
     assert obtained_alpha_0p1_interval_length < alpha_0p05_interval_length
 
+    obtained_alpha_0p1_median = alpha_0p1_obtained_intervals[1][0]
+    obtained_alpha_0p05_median = obtained_intervals_sorted[1][0]
+    assert obtained_alpha_0p1_median == obtained_alpha_0p05_median
+
     expected_lambda = 1.1
     np.testing.assert_allclose(
         obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
