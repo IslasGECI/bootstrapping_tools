@@ -131,7 +131,7 @@ def test_bootstrap_from_time_series():
             len(element) == expected_parameters_for_each_confidence_interval
             for element in obtained_intervals_sorted
         ]
-    )
+    ), "Each confidence interval element have the proper number of parameters"
 
     obtained_alpha_0p1_intervals = xxbootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
     obtained_alpha_0p05_interval_length = (
@@ -140,11 +140,15 @@ def test_bootstrap_from_time_series():
     obtained_alpha_0p1_interval_length = (
         obtained_alpha_0p1_intervals[2][0] - obtained_alpha_0p1_intervals[0][0]
     )
-    assert obtained_alpha_0p1_interval_length < obtained_alpha_0p05_interval_length
+    assert (
+        obtained_alpha_0p1_interval_length < obtained_alpha_0p05_interval_length
+    ), "Distance from lower alpha is greater than distance of lower alpha"
 
     obtained_alpha_0p1_median = obtained_alpha_0p1_intervals[1][0]
     obtained_alpha_0p05_median = obtained_intervals_sorted[1][0]
-    assert obtained_alpha_0p1_median == obtained_alpha_0p05_median
+    assert (
+        obtained_alpha_0p1_median == obtained_alpha_0p05_median
+    ), "Central values of confidence interval are equal for different alpha"
 
     expected_lambda = 1.1
     np.testing.assert_allclose(
