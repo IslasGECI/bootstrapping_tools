@@ -1,5 +1,5 @@
-from bootstrapping_tools import (
-    resample_and_shift_data,
+from bootstrapping_tools.bootstrapping import resample_and_shift_data
+from bootstrapping_tools.resample_by_blocks import (
     get_labels,
     get_rows,
 )
