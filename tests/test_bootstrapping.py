@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
+import pytest
 from bootstrapping_tools.bootstrapping import (
     boostrapping_feature,
+    bootstrap_from_time_series,
     compute_lambda_bootstrapped_intervals_from_time_series,
     calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,
@@ -119,6 +121,10 @@ def test_compute_lambda_bootstrapped_intervals_from_time_series():
             "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
         }
     )
+
+    with pytest.warns(DeprecationWarning):
+        bootstrap_from_time_series(data_nest, "Nest", N=100)
+
     obtained_distribution_sorted, obtained_intervals_sorted = (
         compute_lambda_bootstrapped_intervals_from_time_series(
             data_nest, "Nest", N=100, return_distribution=True
