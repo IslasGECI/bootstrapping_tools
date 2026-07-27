@@ -39,7 +39,7 @@ clean:
 	rm --force --recursive ${module}.egg-info
 	rm --force --recursive ${module}/__pycache__
 	rm --force --recursive tests/__pycache__
-	rm --force .mutmut-cache
+	rm --force --recursive mutants
 	rm --force coverage.xml
 
 coverage: install
@@ -60,7 +60,7 @@ linter:
 	$(call lint, tests)
 
 mutants: install
-	mutmut run --paths-to-mutate ${module} || \
+	mutmut run  || \
 	mutmut html
 
 mutants_bootstrapping: install

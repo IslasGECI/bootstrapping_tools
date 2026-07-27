@@ -17,3 +17,7 @@ requires = [
     "tqdm",
 ]
 requires-python=">=3"
+
+[tool.mutmut]
+paths_to_mutate = [ "bootstrapping_tools/" ]
+tests_dir = [ "tests/" ]
