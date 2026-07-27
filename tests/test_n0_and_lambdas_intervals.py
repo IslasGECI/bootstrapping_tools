@@ -1,4 +1,4 @@
-from bootstrapping_tools import get_percentile
+from bootstrapping_tools.n0_and_lambdas_intervals import get_percentile
 
 
 def tests_get_percentile():

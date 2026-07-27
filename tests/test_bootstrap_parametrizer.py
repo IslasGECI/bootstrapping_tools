@@ -1,5 +1,5 @@
 import pandas as pd
-from bootstrapping_tools import Bootstrap_from_time_series_parametrizer
+from bootstrapping_tools.bootstrap_parametrizer import Bootstrap_from_time_series_parametrizer
 
 
 def get_df(file_path):
