@@ -153,9 +153,10 @@ def test_bootstrap_from_time_series():
     expected_lambda = 1.1
     np.testing.assert_allclose(
         obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
-    ), "Lambda central difiere del esperado"
+    ), "Lambda central is different from expected"
+
     data_nest_resampled = data_nest.sample(frac=1)
-    obtained_distribution_resampled, obtained_intervals = xxbootstrap_from_time_series(
+    obtained_distribution_resampled, _ = xxbootstrap_from_time_series(
         data_nest_resampled, "Nest", N=100, return_distribution=True
     )
     assert set(obtained_distribution_sorted) == set(obtained_distribution_resampled)
