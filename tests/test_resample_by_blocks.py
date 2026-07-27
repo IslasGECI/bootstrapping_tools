@@ -4,6 +4,7 @@ from pandas.testing import assert_frame_equal
 from bootstrapping_tools import (
     random_resample_data_by_blocks,
     resample_and_shift_data,
+    xxresample_and_shift_data,
 )
 import random
 
@@ -14,9 +15,13 @@ def test_resample_and_shift_data():
     block_size_2.set_expected([40, 0, 40, 0, 0, 10], [1000, 600, 1000, 600, 600, 700])
     random_seed = 2
     block_size_2.assert_resample_and_shift_data(random_seed)
+
     unsorted_df = pd.DataFrame({"b": [700, 900, 800, 600, 1000], "Temporada": [20, 40, 30, 10, 50]})
-    block_size_2.data = unsorted_df
-    block_size_2.assert_resample_and_shift_data(random_seed)
+    obtained = xxresample_and_shift_data(unsorted_df, random_seed, blocks_length)
+    expected = pd.DataFrame(
+        {"b": [1000, 600, 1000, 600, 600, 700], "Temporada": [40, 0, 40, 0, 0, 10]}
+    )
+    assert_frame_equal(expected, obtained)
 
 
 def test_resample_and_shift_data_block_length_4():
