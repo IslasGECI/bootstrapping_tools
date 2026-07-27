@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import random
+import warnings
 
 from .n0_and_lambdas_intervals import get_percentile
 from .resample_by_blocks import random_resample_data_by_blocks
@@ -168,6 +169,25 @@ def get_bootstrap_deltas(bootstrap_distribution, **kwargs):
 
 
 def bootstrap_from_time_series(
+    dataframe,
+    column_name,
+    N=2000,
+    return_distribution=False,
+    blocks_length=2,
+    alpha=0.05,
+):
+    warnings.warn(
+        "bootstrap_from_time_series is deprecated, use"
+        "compute_lambda_bootstrapped_intervals_from_time_series instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    return compute_lambda_bootstrapped_intervals_from_time_series(
+        dataframe, column_name, N, return_distribution, blocks_length, alpha
+    )
+
+
+def compute_lambda_bootstrapped_intervals_from_time_series(
     dataframe,
     column_name,
     N=2000,
