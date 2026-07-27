@@ -1,4 +1,5 @@
-from bootstrapping_tools import AbstractSeriesBootstrapper, Bootstrap_from_time_series_parametrizer
+from bootstrapping_tools.abstract_series_bootstrapper import AbstractSeriesBootstrapper
+from bootstrapping_tools.bootstrap_parametrizer import Bootstrap_from_time_series_parametrizer
 
 import pytest
 
