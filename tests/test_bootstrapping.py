@@ -134,11 +134,13 @@ def test_bootstrap_from_time_series():
     )
 
     alpha_0p1_obtained_intervals = xxbootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
-    alpha_0p05_interval_length = obtained_intervals_sorted[2][0] - obtained_intervals_sorted[0][0]
+    obtained_alpha_0p05_interval_length = (
+        obtained_intervals_sorted[2][0] - obtained_intervals_sorted[0][0]
+    )
     obtained_alpha_0p1_interval_length = (
         alpha_0p1_obtained_intervals[2][0] - alpha_0p1_obtained_intervals[0][0]
     )
-    assert obtained_alpha_0p1_interval_length < alpha_0p05_interval_length
+    assert obtained_alpha_0p1_interval_length < obtained_alpha_0p05_interval_length
 
     obtained_alpha_0p1_median = alpha_0p1_obtained_intervals[1][0]
     obtained_alpha_0p05_median = obtained_intervals_sorted[1][0]
