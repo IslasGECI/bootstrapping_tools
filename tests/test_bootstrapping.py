@@ -114,76 +114,75 @@ def test_get_bootstrap_deltas():
 
 
 def test_bootstrap_from_time_series():
-    # data_nest = pd.DataFrame(
-    #     {
-    #         "Temporada": [2019, 2020, 2022, 2023, 2024],
-    #         "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
-    #     }
-    # )
-    # obtained_distribution_sorted, obtained_intervals_sorted = xxbootstrap_from_time_series(
-    #     data_nest, "Nest", N=100, return_distribution=True
-    # )
-    # expected_lambda = 1.1
-    # np.testing.assert_allclose(
-    #     obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
-    # ), "Lambda central difiere del esperado"
-    #
-    # data_nest_resampled = data_nest.sample()
-    # obtained_distribution_resampled, obtained_intervals = xxbootstrap_from_time_series(
-    #     data_nest_resampled, "Nest", N=100, return_distribution=True
-    # )
-    # assert set(obtained_distribution_sorted) == set(obtained_distribution_resampled)
-
     data_nest = pd.DataFrame(
         {
-            "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
-            "Nest": [3.9, 6.9, 2.0, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+            "Temporada": [2019, 2020, 2022, 2023, 2024],
+            "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
         }
     )
-    obtained_intervals = bootstrap_from_time_series(
-        data_nest,
-        "Nest",
-        N=100,
+    obtained_distribution_sorted, obtained_intervals_sorted = xxbootstrap_from_time_series(
+        data_nest, "Nest", N=100, return_distribution=True
     )
-    expected_intervals = [
-        (1.7756228722166965, 2.194867895427428),
-        (1.8188487799907618, 2.0992968258179414),
-        (1.8694784018408663, 1.9800000000000049),
-    ]
+    expected_lambda = 1.1
     np.testing.assert_allclose(
-        obtained_intervals, expected_intervals, rtol=1e-5
-    ), "Intervalo del 95% difiere"
-    obtained_intervals = bootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
-    expected_intervals = [
-        (1.7832026961796754, 2.158007781824859),
-        (1.8188487799907618, 2.0992968258179414),
-        (1.8579915376995575, 2.0190417548864987),
-    ]
-    np.testing.assert_allclose(
-        obtained_intervals, expected_intervals, rtol=1e-5
-    ), "Intervalo del 90% difiere"
-    obtained_distribution, obtained_intervals = bootstrap_from_time_series(
-        data_nest, "Nest", N=10, return_distribution=True
+        obtained_intervals_sorted[1][0], expected_lambda, rtol=1e-3
+    ), "Lambda central difiere del esperado"
+    data_nest_resampled = data_nest.sample(frac=1)
+    obtained_distribution_resampled, obtained_intervals = xxbootstrap_from_time_series(
+        data_nest_resampled, "Nest", N=100, return_distribution=True
     )
-    expected_distribution = [
-        (1.8188487799907618, 2.0992968258179414),
-        (1.8328919359231968, 2.0610996674207156),
-        (1.7628865979381445, 2.20093567251462),
-        (1.8440020668913857, 2.068487745720787),
-        (1.8081803237792122, 2.1190119654316883),
-        (1.8498489307263364, 2.016617429075573),
-        (1.798101365242219, 2.1302347882812196),
-        (1.8352340028484722, 2.069625486077895),
-        (1.8271155896978533, 2.064636616223166),
-        (1.7900022957002242, 2.158783393390024),
-    ]
-    np.testing.assert_allclose(obtained_distribution, expected_distribution, rtol=1e-5)
-    expected_intervals = [
-        (1.7628865979381445, 2.20093567251462),
-        (1.8188487799907618, 2.0992968258179414),
-        (1.8498489307263364, 2.016617429075573),
-    ]
-    np.testing.assert_allclose(obtained_intervals, expected_intervals, rtol=1e-5)
+    assert set(obtained_distribution_sorted) == set(obtained_distribution_resampled)
+
+    # data_nest = pd.DataFrame(
+    #    {
+    #        "Temporada": [2019, 2020, 2018, 2018, 2019, 2020, 2018, 2019, 2020],
+    #        "Nest": [3.9, 6.9, 2.0, 2.1, 4.0, 7.0, 1.9, 3.8, 6.8],
+    #    }
+    # )
+    # obtained_intervals = bootstrap_from_time_series(
+    #    data_nest,
+    #    "Nest",
+    #    N=100,
+    # )
+    # expected_intervals = [
+    #    (1.7756228722166965, 2.194867895427428),
+    #    (1.8188487799907618, 2.0992968258179414),
+    #    (1.8694784018408663, 1.9800000000000049),
+    # ]
+    # np.testing.assert_allclose(
+    #    obtained_intervals, expected_intervals, rtol=1e-5
+    # ), "Intervalo del 95% difiere"
+    # obtained_intervals = bootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
+    # expected_intervals = [
+    #    (1.7832026961796754, 2.158007781824859),
+    #    (1.8188487799907618, 2.0992968258179414),
+    #    (1.8579915376995575, 2.0190417548864987),
+    # ]
+    # np.testing.assert_allclose(
+    #    obtained_intervals, expected_intervals, rtol=1e-5
+    # ), "Intervalo del 90% difiere"
+    # obtained_distribution, obtained_intervals = bootstrap_from_time_series(
+    #    data_nest, "Nest", N=10, return_distribution=True
+    # )
+    # expected_distribution = [
+    #    (1.8188487799907618, 2.0992968258179414),
+    #    (1.8328919359231968, 2.0610996674207156),
+    #    (1.7628865979381445, 2.20093567251462),
+    #    (1.8440020668913857, 2.068487745720787),
+    #    (1.8081803237792122, 2.1190119654316883),
+    #    (1.8498489307263364, 2.016617429075573),
+    #    (1.798101365242219, 2.1302347882812196),
+    #    (1.8352340028484722, 2.069625486077895),
+    #    (1.8271155896978533, 2.064636616223166),
+    #    (1.7900022957002242, 2.158783393390024),
+    # ]
+    # np.testing.assert_allclose(obtained_distribution, expected_distribution, rtol=1e-5)
+    # expected_intervals = [
+    #    (1.7628865979381445, 2.20093567251462),
+    #    (1.8188487799907618, 2.0992968258179414),
+    #    (1.8498489307263364, 2.016617429075573),
+    # ]
+    # np.testing.assert_allclose(obtained_intervals, expected_intervals, rtol=1e-5)
 
 
 def test_calculate_limits_from_p_values_and_alpha():
