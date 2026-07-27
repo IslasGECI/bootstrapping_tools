@@ -5,7 +5,7 @@ RUN pip install --upgrade pip && pip install \
     black \
     codecov \
     flake8 \
-    mutmut==2.5.1 \
+    mutmut \
     mypy \
     pylint \
     pytest \
