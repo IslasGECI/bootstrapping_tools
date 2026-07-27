@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from bootstrapping_tools.bootstrapping import (
     boostrapping_feature,
-    xxbootstrap_from_time_series,
+    bootstrap_from_time_series,
     calculate_bootstrapped_mean,
     calculate_intervals_from_p_values_and_alpha,
     calculate_limits_from_p_values_and_alpha,
@@ -119,7 +119,7 @@ def test_bootstrap_from_time_series():
             "Nest": [1, 1.1, 1.331, 1.4641, 1.61051],
         }
     )
-    obtained_distribution_sorted, obtained_intervals_sorted = xxbootstrap_from_time_series(
+    obtained_distribution_sorted, obtained_intervals_sorted = bootstrap_from_time_series(
         data_nest, "Nest", N=100, return_distribution=True
     )
     expected_elements_of_distribution = 3
@@ -132,7 +132,7 @@ def test_bootstrap_from_time_series():
         ]
     ), "A confidence interval element has wrong number of parameters"
 
-    obtained_alpha_0p1_intervals = xxbootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
+    obtained_alpha_0p1_intervals = bootstrap_from_time_series(data_nest, "Nest", N=100, alpha=0.1)
     obtained_alpha_0p05_interval_length = (
         obtained_intervals_sorted[2][0] - obtained_intervals_sorted[0][0]
     )
@@ -156,7 +156,7 @@ def test_bootstrap_from_time_series():
 
     data_nest_resampled = data_nest.sample(frac=1)
     bootstrapp_number = 100
-    obtained_distribution_resampled, _ = xxbootstrap_from_time_series(
+    obtained_distribution_resampled, _ = bootstrap_from_time_series(
         data_nest_resampled, "Nest", N=bootstrapp_number, return_distribution=True
     )
     assert set(obtained_distribution_sorted) == set(
