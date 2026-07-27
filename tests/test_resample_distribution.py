@@ -1,5 +1,4 @@
 from bootstrapping_tools import (
-    resample_and_shift_data,
     xxresample_and_shift_data,
     get_labels,
     get_rows,
@@ -48,7 +47,7 @@ def test_distribution():
 
     blocks_length = 3
     seed = 7
-    df_resample = resample_and_shift_data(gumu_data, seed, blocks_length)
+    df_resample = xxresample_and_shift_data(gumu_data, seed, blocks_length)
     expected_nidos = [40.0, 125.0, 195.0, 6.0, 40.0, 125.0, 275.0, 399.0, 686.0]
     expected_temporadas = [2, 3, 4, 1, 2, 3, 5, 6, 7]
     obtained_nidos = df_resample.Maxima_cantidad_nidos.to_list()
