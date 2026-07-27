@@ -14,6 +14,9 @@ def test_resample_and_shift_data():
     block_size_2.set_expected([40, 0, 40, 0, 0, 10], [1000, 600, 1000, 600, 600, 700])
     random_seed = 2
     block_size_2.assert_resample_and_shift_data(random_seed)
+    unsorted_df = pd.DataFrame({"b": [700, 900, 800, 600, 1000], "Temporada": [20, 40, 30, 10, 50]})
+    block_size_2.data = unsorted_df
+    block_size_2.assert_resample_and_shift_data(random_seed)
 
 
 def test_resample_and_shift_data_block_length_4():
