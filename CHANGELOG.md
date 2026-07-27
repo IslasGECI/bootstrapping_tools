@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.3.0] - 2026-07-27
+
+### Added
+- `compute_lambda_bootstrapped_intervals_from_time_series()` as the replacement
+  for `bootstrap_from_time_series()`
+
+### Deprecated
+- `bootstrap_from_time_series()` — use
+  `compute_lambda_bootstrapped_intervals_from_time_series()` instead
+
+### Fix
+- Function `resample_and_shift_data()` now handles properly unsorted data. Before sampling sort data time series.
+
 ## [3.2.0] - 2024-10-23
 ### Added
 - Add abstract class `AbstractSeriesBootstrapper` as template for `LambdasBootstrapper` and `ProgressBootstrapper` classes
